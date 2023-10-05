@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">ConnectSport</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="atras">Atrás</string>
+    <string name="aceptar">ACEPTAR</string>
+
+    <!--TermOfService-->
+    <string name="eventos">Eventos</string>
+    <string name="evento">Te ayudaremos a encontrar eventos que sean adecuados para ti y tus intereses. También te ayudaremos a reservar entradas y a planificar tu viaje.</string>
+    <string name="evento2">Evita asistir a eventos que sean demasiado caros, que tengan lugar en lugares remotos o que no sean de tu interés. Estos eventos pueden ser una pérdida de tiempo y dinero.</string>
+
+    <string name="horarios">Planificación de horario</string>
+    <string name="horario">Te ayudamos a organizar tu horario de forma eficiente, basada en tus prioridades y compromisos.</string>
+    <string name="horario2">Te ayudamos a encontrar tiempo para las cosas que más te importan, sin perderte nada.</string>
+
+    <string name="datos">Información básica sobre Protección de Datos</string>
+    <string name="responsable">Responsable</string>
+    <string name="responsable2">CONNECTSPORT S.L.</string>
+    <string name="finalidad">Finalidad</string>
+    <string name="finalidad2">Envío de comunicaciones comerciales.</string>
+    <string name="destinatario">Destinatarios</string>
+    <string name="destinatario2">Únicamente se cederán datos en caso de obligación legal.</string>
+    <string name="info">Información detallada</string>
+    <string name="info2">Al pulsar aceptar aceptas nuestros términos y condiciones.</string>
+    <string name="acepto">Acepto los términos y condiciones.</string>
+    <string name="acceptToS">Debes aceptar nuestros términos y condiciones</string>
+
 </resources>
