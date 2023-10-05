@@ -1,9 +1,41 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ConnectSport" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.ConnectSport." parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green2</item>
+        <item name="colorOnPrimary">@color/fadeWhite</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/purple2</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!--COÑO YA-->
+        <item name="backgroundColor">@color/fadeWhite</item>
+        <item name="popupMenuBackground">@color/moreFadeWhite</item>
     </style>
 
-    <style name="Theme.ConnectSport" parent="Base.Theme.ConnectSport" />
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:elevation" tools:targetApi="lollipop">
+            @dimen/cardview_compat_inset_shadow
+        </item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="BottomNavigation">
+        <item name="itemIconTint">?attr/colorSurface</item>
+        <item name="android:background">@color/white</item>
+        <item name="itemTextColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="TextAppearance.MaterialComponents.Chip" parent="TextAppearance.AppCompat" />
+
 </resources>

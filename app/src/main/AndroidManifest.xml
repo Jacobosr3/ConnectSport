@@ -10,13 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ConnectSport"
+        android:theme="@style/Theme.ConnectSport."
         tools:targetApi="31">
         <activity
             android:name=".login.MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".termsofservice.Fragment1"
             android:exported="true"
@@ -31,14 +29,14 @@
             android:name=".termsofservice.Fragment2"
             android:exported="false"
             android:parentActivityName=".termsofservice.Fragment1"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".termsofservice.Fragment3"
             android:exported="false"
             android:parentActivityName=".termsofservice.Fragment2"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
