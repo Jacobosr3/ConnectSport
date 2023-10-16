@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/inicio"
+        android:icon="@drawable/eventos"
+        android:title="@string/bottom_menu_home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/eventos"
+        android:icon="@drawable/lupa"
+        android:title="@string/bottom_menu_grocery"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/mapa"
+        android:icon="@drawable/mapa"
+        android:title="@string/bottom_menu_searchbar"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/perfil"
+        android:icon="@drawable/logoperfil"
+        android:title="@string/bottom_menu_profile"
+        app:showAsAction="always" />
+</menu>

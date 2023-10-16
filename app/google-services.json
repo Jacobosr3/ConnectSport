@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "11920694656",
+    "firebase_url": "https://connectsport-9ceea-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "connectsport-9ceea",
     "storage_bucket": "connectsport-9ceea.appspot.com"
   },
@@ -12,7 +13,28 @@
           "package_name": "com.example.connectsport"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "11920694656-6ncq774pu5hdc09hmevistjj6kkgjq90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.connectsport",
+            "certificate_hash": "9ecf0a4f126d46471b3a9730a15b498b576663f7"
+          }
+        },
+        {
+          "client_id": "11920694656-kq6smbflh3vlgj457q0t91td8mf9d894.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.connectsport",
+            "certificate_hash": "7add07fc86c1f5ff31fca3a9ae73762bcf45a99c"
+          }
+        },
+        {
+          "client_id": "11920694656-qvojalmet2ptjla0g4cpttjo2aulkjf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCMIDf_gZuGrzmOb2UMlxf-gF4yLUaCPqU"
@@ -20,7 +42,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11920694656-qvojalmet2ptjla0g4cpttjo2aulkjf2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -25,4 +25,161 @@
     <string name="acepto">Acepto los términos y condiciones.</string>
     <string name="acceptToS">Debes aceptar nuestros términos y condiciones</string>
 
+    <!--Main-->
+    <string name="slogan">Connect with life</string>
+    <string name="access_with">Accede con</string>
+    <string name="crearCuenta">Crear cuenta</string>
+    <string name="googleLoginError">Fallo al iniciar sesión con Google</string>
+    <string name="googleLoginSuccess">Inicio de sesión con Google correcto</string>
+    <string name="defaultStatus">Escribe algo…</string>
+
+    <!--signup-->
+    <string name="register_textview">Registro</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="mail">Email</string>
+    <string name="optional">(Opcional)</string>
+    <string name="age_hint">Edad</string>
+    <string name="height_hint">Altura (cm)</string>
+    <string name="weight_hint">Peso (kg)</string>
+    <string name="next">Siguiente</string>
+    <string name="pass">Contraseña</string>
+    <string name="pass2">Repite contraseña</string>
+    <string name="confirm_data">Confirma tus datos</string>
+    <string name="name">Nombre:</string>
+    <string name="mail_confirm">Email:</string>
+    <string name="age_confirm">Edad:</string>
+    <string name="height_confirm">Altura:</string>
+    <string name="weight_confirm">Peso:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="emptyFields">Este campo es obligatorio</string>
+    <string name="invalidEmail">Introduce un correo válido</string>
+    <string name="passwordsDoNotMatch">Las contraseñas no coinciden</string>
+    <string name="password_requirements">Requisitos de contraseña</string>
+    <string name="password_length">- Al menos 6 caracteres</string>
+    <string name="password_uppercase">- Al menos 1 mayúscula</string>
+    <string name="password_number">- Al menos 1 número</string>
+    <string name="password_special_char">- Al menos 1 carácter especial</string>
+    <string name="error_password_header">La contraseña no cumple los requisitos:</string>
+    <string name="error_password_length">6 caracteres</string>
+    <string name="error_password_uppercase">1 mayúscula</string>
+    <string name="error_password_digit">1 número</string>
+    <string name="error_password_special">1 caracter especial</string>
+    <string name="newUserSuccess">Usuario creado con éxito, correo de verificación enviado</string>
+    <string name="newUserFail">Error al crear usuario</string>
+
+    <!--Login-->
+    <string name="bienvenido">Bienvenido de nuevo</string>
+    <string name="acceder">ACCEDER</string>
+    <string name="olvidado">¿HAS OLVIDADO TU CONTRASEÑA?</string>
+    <string name="loginError">Error al iniciar sesión</string>
+    <string name="loginSuccess">Inicio de sesión correcto</string>
+    <string name="mailNotVerified">El email no ha sido verificado</string>
+    <string name="wrongPassword">Contraseña o email incorrectos</string>
+    <string name="userNotFound">Usuario no registrado</string>
+    <string name="frase">El mail con el que hiciste tu perfil.</string>
+    <string name="sentEmail">Email enviado</string>
+    <string name="mailNotFound">El email introducido no está registrado</string>
+    <string name="reset">RESTABLECER CONTRASEÑA</string>
+
+    <!-- Bottom menu strings -->
+    <string name="bottom_menu_home">Inicio</string>
+    <string name="bottom_menu_grocery">Eventos</string>
+    <string name="bottom_menu_searchbar">Mapa</string>
+    <string name="bottom_menu_profile">Perfil</string>
+
+    <!-- event Title -->
+    <string name="event_title">Título</string>
+    <string name="event_title_hint">Introduzca el nombre del evento…</string>
+
+    <!-- Ingredients -->
+    <string name="ingredients">Ingredientes</string>
+    <string name="ingredient_hint">Introduzca los ingredientes…</string>
+    <string name="add_ingredient">Añadir</string>
+
+    <!-- event Elaboration -->
+    <string name="elaboration">Elaboración</string>
+    <string name="elaboration_hint">Introduzca la elaboración de la receta…</string>
+
+    <!-- Time and Number of People -->
+    <string name="time">Tiempo</string>
+    <string name="time_value">min</string>
+    <string name="num_people">Para</string>
+    <string name="num_person_value">persona</string>
+    <string name="num_people_value">personas</string>
+
+    <!-- event Tags -->
+    <string name="event_tags">Etiquetas</string>
+    <string name="high_protein">Alta en Proteínas</string>
+    <string name="low_fat">Baja en Grasas</string>
+    <string name="gluten_free">Sin Gluten</string>
+    <string name="lactose_free">Sin Lactosa</string>
+
+    <string name="create_event">Crear receta</string>
+    <string name="private_event_toggle">Receta privada</string>
+    <string name="create_event_progress">Creando receta…</string>
+    <string name="create_event_error_emptyfields">Rellena todos los campos</string>
+
+    <string name="update_status">Aqui puedes actualizar tu estado…</string>
+    <string name="status_save">Guardar</string>
+
+    <string name="keywords_searchbar">Introduce hasta 3 palabras clave…</string>
+
+    <string name="created_by">Creada por:</string>
+
+    <!-- event Type -->
+    <string name="event_type">Tipo</string>
+    <string-array name="event_types">
+        <item>-</item>
+        <item>Comida Vegetariana</item>
+        <item>Comida Rápida</item>
+        <item>Postres</item>
+        <item>Platos Principales</item>
+        <item>Comida Saludable</item>
+        <item>Comida para Diabéticos</item>
+    </string-array>
+
+    <!-- Creación de recetas -->
+    <string name="new_event_created">Nueva evento creada!</string>
+    <string name="new_event_error">Error al crear evento!</string>
+    <string name="new_event_image_error">Error al crear evento (error de imagenes)</string>
+
+    <!-- Gestión de votos -->
+    <string name="already_voted">Ya has votado este evento</string>
+    <string name="vote_confirm">¿Quieres valorar el evento con %f estrellas?</string>
+    <string name="vote_retrieve_error">Error al consultar votos</string>
+    <string name="voted_correctly">Voto registrado correctamente</string>
+    <string name="vote_add_error">Error al registrar voto</string>
+
+    <string name="addItem">Añadir alimento</string>
+    <string name="newItem">Añade un alimento</string>
+    <string name="enterFood">Introduzca un alimento</string>
+
+    <!-- Perfil -->
+    <string name="icm_fill_all">Rellena peso y altura</string>
+    <string name="result">Resultado</string>
+
+    <!-- Profile -->
+    <string name="profile_event_count">Tus eventos:</string>
+    <string name="profile_creation_time">Miembro desde:</string>
+
+    <!-- Signout -->
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="sign_out_confirm">¿Está seguro que desea cerrar sesión?</string>
+
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="closedSession">Sesión cerrada</string>
+
+    <!-- event Photo -->
+    <string name="event_photo">Imágenes</string>
+    <string name="select_photo">Seleccionar foto</string>
+    <string name="no_image_selected">Ninguna imagen seleccionada</string>
+    <string name="upload_picture_error">Error al subir la imagen</string>
+
+    <string name="uploadImageError">Error al cargar la imágen</string>
+    <string name="user_updated">Foto de perfil actualizada</string>
+    <string name="user_not_updated">Error al actualizar perfil</string>
+
+
 </resources>

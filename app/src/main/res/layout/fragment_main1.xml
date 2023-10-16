@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".main.FragmentMain1">
+
+    <ImageView
+        android:id="@+id/feed_title"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="-40dp"
+        android:src="@drawable/titulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/new_events"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/ic_add_events"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/separador"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@id/feed_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/events_feed_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separador" />
+
+    <View
+        android:id="@+id/separador2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        app:layout_constraintTop_toBottomOf="@id/events_feed_recycler_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

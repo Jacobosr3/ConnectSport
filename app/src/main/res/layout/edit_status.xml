@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundColor"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/newRepeatPassword"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/status_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:inputType="textMultiLine"
+            android:hint="@string/update_status"
+            android:textSize="16sp"
+            android:textColor="?attr/colorSurface" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/save_status_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/rounded_button_primary"
+        android:backgroundTintMode="screen"
+        android:fontFamily="monospace"
+        android:textColor="@color/buttonselectorprimary"
+        android:textStyle="bold"
+        android:text="@string/status_save" />
+
+</LinearLayout>

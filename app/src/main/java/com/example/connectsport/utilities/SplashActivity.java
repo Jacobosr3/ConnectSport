@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.connectsport.R;
 import com.example.connectsport.login.MainActivity;
+import com.example.connectsport.main.MainBn;
 import com.example.connectsport.termsofservice.Fragment1;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
             if (firebaseUser != null) {
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);//MainBn
+                Intent mainIntent = new Intent(SplashActivity.this, MainBn.class);//MainBn
                 startActivity(mainIntent);
                 finish();
             } else {

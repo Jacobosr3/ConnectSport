@@ -6,26 +6,92 @@
     android:layout_height="match_parent"
     tools:context="login.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Esto es ConnectSport!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitStart" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="500dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/titulo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/siguiente"
+        android:id="@+id/slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/siguiente"
-        android:textAlignment="center"
+        android:layout_marginTop="-50dp"
+        android:text="@string/slogan"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:shadowColor="@color/green2"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:shadowColor="@color/green2"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:layout_marginBottom="76dp"
+        android:text="@string/access_with"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/crearCuenta" />
+
+    <ImageButton
+        android:id="@+id/google_logo_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/ic_google"
+        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="65dp"
+        app:layout_constraintBottom_toTopOf="@id/crearCuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/mail_logo_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_mail"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="65dp"
+        app:layout_constraintBottom_toTopOf="@id/crearCuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/crearCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/rounded_button_primary"
+        android:backgroundTintMode="screen"
+        android:fontFamily="monospace"
+        android:text="@string/crearCuenta"
+        android:textSize="16sp"
+        android:textColor="@color/buttonselectorprimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
