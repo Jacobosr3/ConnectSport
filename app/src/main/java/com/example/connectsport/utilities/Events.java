@@ -27,6 +27,9 @@ public class Events implements Parcelable {
     private Boolean isPublished;
     private DocumentReference Ref;
 
+    public Events() {
+        // Inicializa cualquier campo necesario si es necesario
+    }
     public Events(String eventsTitle, String eventsIngredients, String eventsElaboration, String tvEventsServings,
                   String tvEventsTime, String selectedEventsType, List<String> tags, List<String> images, String creatorUid,
                   String creatorUsername, float rating, int voteCounter, Date createdAt, Boolean isPublished) {
@@ -109,27 +112,27 @@ public class Events implements Parcelable {
         return 0;
     }
 
-    public String getRecipeTitle() {
+    public String getEventsTitle() {
         return eventsTitle;
     }
 
-    public String getRecipeIngredients() {
+    public String getEventsIngredients() {
         return eventsIngredients;
     }
 
-    public String getRecipeElaboration() {
+    public String getEventsElaboration() {
         return eventsElaboration;
     }
 
-    public String getTvRecipeServings() {
+    public String getTvEventsServings() {
         return tvEventsServings;
     }
 
-    public String getTvRecipeTime() {
+    public String getTvEventsTime() {
         return tvEventsTime;
     }
 
-    public String getSelectedRecipeType() {
+    public String getSelectedEventsType() {
         return selectedEventsType;
     }
 

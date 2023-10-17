@@ -90,16 +90,16 @@
 
     <!-- event Title -->
     <string name="event_title">Título</string>
-    <string name="event_title_hint">Introduzca el nombre del evento…</string>
+    <string name="event_title_hint">Introduzca la ubicación del evento…</string>
 
     <!-- Ingredients -->
     <string name="ingredients">Ingredientes</string>
-    <string name="ingredient_hint">Introduzca los ingredientes…</string>
+    <string name="ingredient_hint">Introduzca fecha / hora</string>
     <string name="add_ingredient">Añadir</string>
 
     <!-- event Elaboration -->
     <string name="elaboration">Elaboración</string>
-    <string name="elaboration_hint">Introduzca la elaboración de la receta…</string>
+    <string name="elaboration_hint">Introduzca una descripción</string>
 
     <!-- Time and Number of People -->
     <string name="time">Tiempo</string>
@@ -110,14 +110,13 @@
 
     <!-- event Tags -->
     <string name="event_tags">Etiquetas</string>
-    <string name="high_protein">Alta en Proteínas</string>
-    <string name="low_fat">Baja en Grasas</string>
-    <string name="gluten_free">Sin Gluten</string>
-    <string name="lactose_free">Sin Lactosa</string>
+    <string name="low">Principiante</string>
+    <string name="medium">Intermedio</string>
+    <string name="high">Avanzado</string>
 
-    <string name="create_event">Crear receta</string>
-    <string name="private_event_toggle">Receta privada</string>
-    <string name="create_event_progress">Creando receta…</string>
+    <string name="create_event">Crear evento</string>
+    <string name="private_event_toggle">Evento privad</string>
+    <string name="create_event_progress">Creando evento…</string>
     <string name="create_event_error_emptyfields">Rellena todos los campos</string>
 
     <string name="update_status">Aqui puedes actualizar tu estado…</string>
@@ -131,15 +130,15 @@
     <string name="event_type">Tipo</string>
     <string-array name="event_types">
         <item>-</item>
-        <item>Comida Vegetariana</item>
-        <item>Comida Rápida</item>
-        <item>Postres</item>
-        <item>Platos Principales</item>
-        <item>Comida Saludable</item>
-        <item>Comida para Diabéticos</item>
+        <item>Fútbol</item>
+        <item>Baloncesto</item>
+        <item>Padel</item>
+        <item>Tenis</item>
+        <item>Voleibol</item>
+        <item>Balonmano</item>
     </string-array>
 
-    <!-- Creación de recetas -->
+    <!-- Creación de eventos -->
     <string name="new_event_created">Nueva evento creada!</string>
     <string name="new_event_error">Error al crear evento!</string>
     <string name="new_event_image_error">Error al crear evento (error de imagenes)</string>

@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="title"
+            android:text="Ubicación"
             android:textColor="?attr/colorSurface"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="ingredients listlist list more more moremo emroem oemroemr oemr oefoijoiejf pwoqif jpio wefjpwoi"
+            android:text="fecha / hora"
             android:textColor="?attr/colorSurface"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.2"
             android:padding="16dp"
-            android:text="elaboration biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiig elaboration iehfi  uhewuiewhf iuhewf iuhw iuhwe ifuhwe iufhiw euhi eufhue h"
+            android:text="descripción"
             android:textAlignment="viewStart"
             android:textColor="?attr/colorSurface"
             android:textSize="15sp"

@@ -56,11 +56,11 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
     }
 
     public void bind(Events recipe) {
-        titleTextView.setText(recipe.getRecipeTitle());
-        timeTextView.setText(recipe.getTvRecipeTime());
+        titleTextView.setText(recipe.getEventsTitle());
+        timeTextView.setText(recipe.getTvEventsTime());
 
         //Checks for comensales
-        String servings = recipe.getTvRecipeServings();
+        String servings = recipe.getTvEventsServings();
         char lastChar = servings.charAt(servings.length() - 1);
         String servingsStr = (lastChar > '1')
                 ? mContext.getString(R.string.num_people_value)
@@ -71,8 +71,8 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
                 : R.drawable.ic_person_newrecipe;
 
         iv_servings.setImageResource(imageResId);
-        servingsTextView.setText(" " + recipe.getTvRecipeServings() + " " + servingsStr);
-        typeTextView.setText(recipe.getSelectedRecipeType());
+        servingsTextView.setText(" " + recipe.getTvEventsServings() + " " + servingsStr);
+        typeTextView.setText(recipe.getSelectedEventsType());
         ratingBar.setRating(recipe.getRating());
         Glide.with(imageView.getContext())
                 .load(recipe.getImages().get(0))

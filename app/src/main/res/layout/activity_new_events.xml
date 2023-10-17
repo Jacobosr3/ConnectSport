@@ -315,35 +315,27 @@
                         android:useDefaultMargins="true">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_high_protein"
+                            android:id="@+id/low"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/high_protein"
+                            android:text="@string/low"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Chip" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_low_fat"
+                            android:id="@+id/medium"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/low_fat"
+                            android:text="@string/medium"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Chip" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_lactose_free"
+                            android:id="@+id/high"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/lactose_free"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Chip" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_gluten_free"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/gluten_free"
+                            android:text="@string/high"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Chip" />
 
                     </GridLayout>

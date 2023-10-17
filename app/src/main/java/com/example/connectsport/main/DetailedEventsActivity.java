@@ -81,10 +81,10 @@ public class DetailedEventsActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
 
         // Cargar título de la receta
-        recipeTitle.setText(mEvents.getRecipeTitle());
+        recipeTitle.setText(mEvents.getEventsTitle());
 
         // Checks para comprobar si el número de comensales es singular o plural, y poner tanto el string como el recurso drawable correspondiente
-        String servings = mEvents.getTvRecipeServings();
+        String servings = mEvents.getTvEventsServings();
         char lastChar = servings.charAt(servings.length() - 1);
         String servingsStr = (lastChar > '1')
                 ? getApplicationContext().getString(R.string.num_people_value)
@@ -97,9 +97,9 @@ public class DetailedEventsActivity extends AppCompatActivity {
         tvRecipeServings.setText(servings + " " + servingsStr);
 
         // Cargamos mas datos de la receta
-        recipeIngredients.setText(mEvents.getRecipeIngredients());
-        recipeElaboration.setText(mEvents.getRecipeElaboration());
-        tvRecipeTime.setText(mEvents.getTvRecipeTime());
+        recipeIngredients.setText(mEvents.getEventsIngredients());
+        recipeElaboration.setText(mEvents.getEventsElaboration());
+        tvRecipeTime.setText(mEvents.getTvEventsTime());
 
         // Verificar si la lista de etiquetas está vacía y cargarla según lo que haya
         if (mEvents.getTags() != null && mEvents.getTags().size() > 0) {

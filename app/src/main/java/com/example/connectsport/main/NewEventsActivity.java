@@ -73,7 +73,7 @@ public class NewEventsActivity extends AppCompatActivity {
     private boolean isRange = false;
     private int servings = 1;
     ChipGroup chipGroup;
-    Chip chipHighProtein, chipLowFat, chipGlutenFree, chipLactoseFree;
+    Chip chipLow, chipMedium, chipHigh;
     SwitchMaterial switch_public_private;
 
     @Override
@@ -117,71 +117,54 @@ public class NewEventsActivity extends AppCompatActivity {
         });
 
         // Declaración de chips y asignación de colores
-        chipHighProtein = findViewById(R.id.chip_high_protein);
-        chipHighProtein.setChipBackgroundColorResource(R.color.chip_background_high_protein_unselected);
-        chipHighProtein.setChipStrokeColorResource(R.color.chip_stroke_high_protein_unselected);
-        chipHighProtein.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
-        chipHighProtein.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_unselected));
-        chipHighProtein.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        chipLow = findViewById(R.id.low);
+        chipLow.setChipBackgroundColorResource(R.color.chip_background_high_protein_unselected);
+        chipLow.setChipStrokeColorResource(R.color.chip_stroke_high_protein_unselected);
+        chipLow.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
+        chipLow.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_unselected));
+        chipLow.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                chipHighProtein.setChipBackgroundColorResource(R.color.chip_background_high_protein_selected);
-                chipHighProtein.setChipStrokeColorResource(R.color.chip_stroke_high_protein_selected);
-                chipHighProtein.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_selected));
+                chipLow.setChipBackgroundColorResource(R.color.chip_background_high_protein_selected);
+                chipLow.setChipStrokeColorResource(R.color.chip_stroke_high_protein_selected);
+                chipLow.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_selected));
             } else {
-                chipHighProtein.setChipBackgroundColorResource(R.color.chip_background_high_protein_unselected);
-                chipHighProtein.setChipStrokeColorResource(R.color.chip_stroke_high_protein_unselected);
-                chipHighProtein.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_unselected));
+                chipLow.setChipBackgroundColorResource(R.color.chip_background_high_protein_unselected);
+                chipLow.setChipStrokeColorResource(R.color.chip_stroke_high_protein_unselected);
+                chipLow.setTextColor(ContextCompat.getColor(this, R.color.chip_text_high_protein_unselected));
             }
         });
 
-        chipLowFat = findViewById(R.id.chip_low_fat);
-        chipLowFat.setChipBackgroundColorResource(R.color.chip_background_low_fat_unselected);
-        chipLowFat.setChipStrokeColorResource(R.color.chip_stroke_low_fat_unselected);
-        chipLowFat.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
-        chipLowFat.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_unselected));
-        chipLowFat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        chipMedium = findViewById(R.id.medium);
+        chipMedium.setChipBackgroundColorResource(R.color.chip_background_low_fat_unselected);
+        chipMedium.setChipStrokeColorResource(R.color.chip_stroke_low_fat_unselected);
+        chipMedium.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
+        chipMedium.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_unselected));
+        chipMedium.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                chipLowFat.setChipBackgroundColorResource(R.color.chip_background_low_fat_selected);
-                chipLowFat.setChipStrokeColorResource(R.color.chip_stroke_low_fat_selected);
-                chipLowFat.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_selected));
+                chipMedium.setChipBackgroundColorResource(R.color.chip_background_low_fat_selected);
+                chipMedium.setChipStrokeColorResource(R.color.chip_stroke_low_fat_selected);
+                chipMedium.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_selected));
             } else {
-                chipLowFat.setChipBackgroundColorResource(R.color.chip_background_low_fat_unselected);
-                chipLowFat.setChipStrokeColorResource(R.color.chip_stroke_low_fat_unselected);
-                chipLowFat.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_unselected));
+                chipMedium.setChipBackgroundColorResource(R.color.chip_background_low_fat_unselected);
+                chipMedium.setChipStrokeColorResource(R.color.chip_stroke_low_fat_unselected);
+                chipMedium.setTextColor(ContextCompat.getColor(this, R.color.chip_text_low_fat_unselected));
             }
         });
 
-        chipGlutenFree = findViewById(R.id.chip_gluten_free);
-        chipGlutenFree.setChipBackgroundColorResource(R.color.chip_background_gluten_free_unselected);
-        chipGlutenFree.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_unselected);
-        chipGlutenFree.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
-        chipGlutenFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_unselected));
-        chipGlutenFree.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        chipHigh = findViewById(R.id.high);
+        chipHigh.setChipBackgroundColorResource(R.color.chip_background_gluten_free_unselected);
+        chipHigh.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_unselected);
+        chipHigh.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
+        chipHigh.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_unselected));
+        chipHigh.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                chipGlutenFree.setChipBackgroundColorResource(R.color.chip_background_gluten_free_selected);
-                chipGlutenFree.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_selected);
-                chipGlutenFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_selected));
+                chipHigh.setChipBackgroundColorResource(R.color.chip_background_gluten_free_selected);
+                chipHigh.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_selected);
+                chipHigh.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_selected));
             } else {
-                chipGlutenFree.setChipBackgroundColorResource(R.color.chip_background_gluten_free_unselected);
-                chipGlutenFree.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_unselected);
-                chipGlutenFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_unselected));
-            }
-        });
-
-        chipLactoseFree = findViewById(R.id.chip_lactose_free);
-        chipLactoseFree.setChipBackgroundColorResource(R.color.chip_background_lactose_free_unselected);
-        chipLactoseFree.setChipStrokeColorResource(R.color.chip_stroke_lactose_free_unselected);
-        chipLactoseFree.setChipStrokeWidthResource(R.dimen.chip_stroke_width);
-        chipLactoseFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_lactose_free_unselected));
-        chipLactoseFree.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                chipLactoseFree.setChipBackgroundColorResource(R.color.chip_background_lactose_free_selected);
-                chipLactoseFree.setChipStrokeColorResource(R.color.chip_stroke_lactose_free_selected);
-                chipLactoseFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_lactose_free_selected));
-            } else {
-                chipLactoseFree.setChipBackgroundColorResource(R.color.chip_background_lactose_free_unselected);
-                chipLactoseFree.setChipStrokeColorResource(R.color.chip_stroke_lactose_free_unselected);
-                chipLactoseFree.setTextColor(ContextCompat.getColor(this, R.color.chip_text_lactose_free_unselected));
+                chipHigh.setChipBackgroundColorResource(R.color.chip_background_gluten_free_unselected);
+                chipHigh.setChipStrokeColorResource(R.color.chip_stroke_gluten_free_unselected);
+                chipHigh.setTextColor(ContextCompat.getColor(this, R.color.chip_text_gluten_free_unselected));
             }
         });
 
