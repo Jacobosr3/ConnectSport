@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -74,6 +75,10 @@ public class DetailedEventsActivity extends AppCompatActivity {
         chip_3 = findViewById(R.id.chip_3);
         chip_4 = findViewById(R.id.chip_4);
         separador_chip = findViewById(R.id.separador_chip);
+        Button btnDeleteEvent = findViewById(R.id.btnDelete);
+        if (!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(mEvents.getCreatorUid())) {
+            btnDeleteEvent.setVisibility(View.GONE);
+        }
 
         // Manejar el adaptador del recycler
         List<String> images = mEvents.getImages();
@@ -240,6 +245,43 @@ public class DetailedEventsActivity extends AppCompatActivity {
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((ImageView) object);
+        }
+    }
+
+    /*public void borrarEvento(View view) {
+        // Obtén la referencia al documento que deseas eliminar
+        DocumentReference eventRef = mEvents.getRef();
+
+        // Elimina el documento
+        eventRef.delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Evento eliminado exitosamente", Toast.LENGTH_SHORT).show();
+                    // Termina la actividad después de eliminar el evento si es necesario
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al eliminar evento", Toast.LENGTH_SHORT).show());
+    }*/
+
+    public void borrarEvento(View view) {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String creatorUid = mEvents.getCreatorUid();
+
+        // Verificar si el usuario actual es el creador del evento
+        if (currentUserId.equals(creatorUid)) {
+            // Obtén la referencia al documento que deseas eliminar
+            DocumentReference eventRef = mEvents.getRef();
+
+            // Elimina el documento
+            eventRef.delete()
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Evento eliminado exitosamente", Toast.LENGTH_SHORT).show();
+                        // Termina la actividad después de eliminar el evento si es necesario
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "Error al eliminar evento", Toast.LENGTH_SHORT).show());
+        } else {
+            // Mostrar un mensaje si el usuario actual no es el creador del evento
+            Toast.makeText(this, "No tienes permiso para eliminar este evento", Toast.LENGTH_SHORT).show();
         }
     }
 

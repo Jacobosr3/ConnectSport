@@ -63,5 +63,6 @@
 
     <color name="switch_track_color">#b3b3b3</color>
     <color name="switch_thumb_color">#ffffff</color>
+    <color name="red">#ff0000</color>
 
 </resources>
