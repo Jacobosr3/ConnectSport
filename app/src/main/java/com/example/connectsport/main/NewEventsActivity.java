@@ -234,12 +234,12 @@ public class NewEventsActivity extends AppCompatActivity {
         // Sistema para aumentar o disminuir comensales basado en el modificador
         increase_servings.setOnClickListener(v -> {
             if (isRange) {
-                if (servings < 8) {
+                if (servings < 49) {
                     servings += 1;
                     tveventServings.setText(servings + " - " + (servings + 1) + " " + getResources().getString(R.string.num_people_value));
                 }
             } else {
-                if (servings < 9) {
+                if (servings < 50) {
                     servings += 1;
                     if (servings == 1) {
                         tveventServings.setText(servings + " " + getResources().getString(R.string.num_person_value));
@@ -300,7 +300,7 @@ public class NewEventsActivity extends AppCompatActivity {
                             progressDialog.setMessage(getString(R.string.create_event_progress));
                             progressDialog.setCancelable(false);
                             progressDialog.show();
-                            // Tras manejar campos vacíos, abrimos nuevo hilo para crear la receta y bloqueamos el principal con el processDialog
+                            // Tras manejar campos vacíos, abrimos nuevo hilo para crear la evento y bloqueamos el principal con el processDialog
                             new Thread(() -> {
                                 createevent(progressDialog);
                                 runOnUiThread(() -> {});
@@ -350,7 +350,7 @@ public class NewEventsActivity extends AppCompatActivity {
 
     private void createevent(ProgressDialog progressDialog) {
 
-        // Cargamos datos para crear receta
+        // Cargamos datos para crear evento
         eventTitle = eteventTitle.getText().toString().trim();
         eventIngredients = eteventIngredients.getText().toString().trim();
         eventElaboration = eteventDirections.getText().toString().trim();
@@ -397,7 +397,7 @@ public class NewEventsActivity extends AppCompatActivity {
             imageBytesList.add(event_image3);
         }
 
-        // Convertimos la lista de imagenes a array de bytes para pasarlos al objeto receta
+        // Convertimos la lista de imagenes a array de bytes para pasarlos al objeto evento
         byte[][] imageBytes = new byte[imageBytesList.size()][];
         for (int i = 0; i < imageBytesList.size(); i++) {
             imageBytes[i] = imageBytesList.get(i);
@@ -415,7 +415,7 @@ public class NewEventsActivity extends AppCompatActivity {
         Task<String> uploadTask = uploadImages(imageBytes);
         uploadTask.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // Si se han subido las imagenes correctamente, obtenemos su referencia, la añadimos a la receta y la subimos
+                // Si se han subido las imagenes correctamente, obtenemos su referencia, la añadimos a la evento y la subimos
                 List<String> imageUrlList = Arrays.asList(task.getResult().split(","));
 
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -425,7 +425,7 @@ public class NewEventsActivity extends AppCompatActivity {
                 // Creamos una instancia de la clase event
                 Events event = new Events(eventTitle, eventIngredients, eventElaboration, eventServingsStr, tveventTime.getText().toString(), selectedeventType, selectedTags, imageUrlList, currentUserId, user.getDisplayName(), 0.0f, 0, new Date(), !switch_public_private.isChecked());
 
-                // Subimos la receta a Firebase Firestore
+                // Subimos la evento a Firebase Firestore
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 CollectionReference eventsRef = db.collection("events");
                 eventsRef.add(event).addOnSuccessListener(documentReference -> Toast.makeText(this, getString(R.string.new_event_created), Toast.LENGTH_SHORT).show())//documentReference.getId() para obtener el ID del objeto subido

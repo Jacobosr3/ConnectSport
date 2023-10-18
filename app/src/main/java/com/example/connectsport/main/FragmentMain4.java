@@ -156,14 +156,14 @@ public class FragmentMain4 extends Fragment {
             });
         });
 
-        // Contar las recetas del usuario
+        // Contar los evento del usuario
         Query query = db.collectionGroup("events").whereEqualTo("creatorUid", currentUserId);
         query.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     int count = queryDocumentSnapshots.size();
                     event_counter.setText(String.valueOf(count));
                 })
-                .addOnFailureListener(e -> Log.e(TAG, "Error al obtener las recetas del usuario", e));
+                .addOnFailureListener(e -> Log.e(TAG, "Error al obtener los evento del usuario", e));
 
         // Obtener y formatear fecha de creación del usuario
         Date creationDate = new Date(userMetadata.getCreationTimestamp());
