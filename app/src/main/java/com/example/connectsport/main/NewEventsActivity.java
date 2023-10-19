@@ -58,7 +58,7 @@ public class NewEventsActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageButton selectedImageButton;
 
-    private String selectedeventType, eventTitle, eventIngredients, eventElaboration;
+    private String selectedeventType, eventTitle, eventIngredients, eventElaboration, eventAttend;
 
     ImageButton increase_time, increase_servings, decrease_time, decrease_servings, event_imageButton1, event_imageButton2, event_imageButton3;
     ImageView  person, group;
@@ -354,6 +354,7 @@ public class NewEventsActivity extends AppCompatActivity {
         eventTitle = eteventTitle.getText().toString().trim();
         eventIngredients = eteventIngredients.getText().toString().trim();
         eventElaboration = eteventDirections.getText().toString().trim();
+        eventAttend = String.valueOf(1);
         byte[] event_image1 = null;
         byte[] event_image2 = null;
         byte[] event_image3 = null;
@@ -423,7 +424,7 @@ public class NewEventsActivity extends AppCompatActivity {
                 String currentUserId = user.getUid();
 
                 // Creamos una instancia de la clase event
-                Events event = new Events(eventTitle, eventIngredients, eventElaboration, eventServingsStr, tveventTime.getText().toString(), selectedeventType, selectedTags, imageUrlList, currentUserId, user.getDisplayName(), 0.0f, 0, new Date(), !switch_public_private.isChecked());
+                Events event = new Events(eventTitle, eventIngredients, eventElaboration, eventAttend,eventServingsStr, tveventTime.getText().toString(), selectedeventType, selectedTags, imageUrlList, currentUserId, user.getDisplayName(), 0.0f, 0, new Date(), !switch_public_private.isChecked());
 
                 // Subimos la evento a Firebase Firestore
                 FirebaseFirestore db = FirebaseFirestore.getInstance();

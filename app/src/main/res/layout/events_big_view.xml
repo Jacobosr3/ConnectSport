@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/recipe_viewPager"
+            android:id="@+id/event_viewPager"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:backgroundTint="?attr/popupMenuBackground" />
@@ -24,7 +24,7 @@
             android:background="?attr/colorSurface" />
 
         <TextView
-            android:id="@+id/tvRecipeTitle"
+            android:id="@+id/tvEventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -45,7 +45,7 @@
                 android:layout_height="32dp" />
 
             <TextView
-                android:id="@+id/tvRecipeServings"
+                android:id="@+id/tvEventServings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -62,7 +62,7 @@
                 android:background="@drawable/ic_clock" />
 
             <TextView
-                android:id="@+id/tvRecipeTime"
+                android:id="@+id/tvEventTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -80,7 +80,7 @@
             android:background="?attr/colorSurface" />
 
         <TextView
-            android:id="@+id/tvRecipeIngredients"
+            android:id="@+id/tvEventIngredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -96,12 +96,24 @@
             android:background="?attr/colorSurface" />
 
         <TextView
-            android:id="@+id/tvRecipeElaboration"
+            android:id="@+id/tvEventElaboration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.2"
             android:padding="16dp"
             android:text="descripción"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorSurface"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEventAttend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:padding="16dp"
+            android:text="participantes"
             android:textAlignment="viewStart"
             android:textColor="?attr/colorSurface"
             android:textSize="15sp"
@@ -190,7 +202,7 @@
             android:orientation="horizontal">
 
             <RatingBar
-                android:id="@+id/recipe_rating"
+                android:id="@+id/event_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-15dp"
@@ -218,7 +230,7 @@
             android:background="?attr/colorSurface" />
 
         <TextView
-            android:id="@+id/tvRecipeCreatorUsername"
+            android:id="@+id/tvEventCreatorUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -228,7 +240,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvRecipeCreatedAt"
+            android:id="@+id/tvEventCreatedAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="18dp"
@@ -237,23 +249,45 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/red"
-            android:text="BORRAR"
-            android:textColor="@color/buttonselectorprimary"
-            android:layout_marginLeft="270dp"
-            android:onClick="borrarEvento"/>
-
         <View
             android:id="@+id/separador2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#00000000"
-            app:layout_constraintTop_toBottomOf="@id/tvRecipeCreatedAt" />
+            app:layout_constraintTop_toBottomOf="@id/tvEventCreatedAt" />
+
+        <LinearLayout
+            android:id="@+id/ll_botones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@color/buttonselectorprimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_title">
+
+            <Button
+                android:id="@+id/btnAttend"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorSecondary"
+                android:text="Asistiré"
+                android:textColor="@color/buttonselectorprimary"
+                android:onClick="asistirEvento" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/red"
+                android:text="BORRAR"
+                android:textColor="@color/buttonselectorprimary"
+                android:onClick="borrarEvento"/>
+        </LinearLayout>
 
     </LinearLayout>
 

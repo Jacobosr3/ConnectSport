@@ -115,7 +115,7 @@
     <string name="high">Avanzado</string>
 
     <string name="create_event">Crear evento</string>
-    <string name="private_event_toggle">Evento privad</string>
+    <string name="private_event_toggle">Evento privado</string>
     <string name="create_event_progress">Creando evento…</string>
     <string name="create_event_error_emptyfields">Rellena todos los campos</string>
 
@@ -125,6 +125,7 @@
     <string name="keywords_searchbar">Introduce hasta 3 palabras clave…</string>
 
     <string name="created_by">Creada por:</string>
+    <string name="attend_user">Participantes:</string>
 
     <!-- event Type -->
     <string name="event_type">Tipo</string>

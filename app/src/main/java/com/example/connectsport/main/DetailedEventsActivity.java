@@ -1,6 +1,7 @@
 package com.example.connectsport.main;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +42,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference votesRef = db.collection("votes");
 
-    private TextView recipeTitle, recipeIngredients, recipeElaboration, tvRecipeServings, tvRecipeTime, tvRecipeCreatorUsername, tvRecipeCreatedAt, tvVoteCounter;
+    private TextView eventTitle, eventIngredients, eventElaboration, eventAttend, tvEventServings, tvEventTime, tvEventCreatorUsername, tvEventCreatedAt, tvVoteCounter;
     private RatingBar ratingBar;
     private ViewPager mViewPager;
     private ChipGroup chipGroup;
@@ -54,20 +55,21 @@ public class DetailedEventsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.events_big_view);
 
-        // Obtener el objeto Recipe enviado desde la actividad anterior
+        // Obtener el objeto Event enviado desde la actividad anterior
         mEvents = getIntent().getParcelableExtra("events");
 
         // Declaración de campos
-        recipeTitle = findViewById(R.id.tvRecipeTitle);
-        ratingBar = findViewById(R.id.recipe_rating);
-        recipeIngredients = findViewById(R.id.tvRecipeIngredients);
-        recipeElaboration = findViewById(R.id.tvRecipeElaboration);
-        tvRecipeServings = findViewById(R.id.tvRecipeServings);
-        tvRecipeTime = findViewById(R.id.tvRecipeTime);
-        tvRecipeCreatorUsername = findViewById(R.id.tvRecipeCreatorUsername);
-        tvRecipeCreatedAt = findViewById(R.id.tvRecipeCreatedAt);
+        eventTitle = findViewById(R.id.tvEventTitle);
+        ratingBar = findViewById(R.id.event_rating);
+        eventIngredients = findViewById(R.id.tvEventIngredients);
+        eventElaboration = findViewById(R.id.tvEventElaboration);
+        eventAttend = findViewById(R.id.tvEventAttend);
+        tvEventServings = findViewById(R.id.tvEventServings);
+        tvEventTime = findViewById(R.id.tvEventTime);
+        tvEventCreatorUsername = findViewById(R.id.tvEventCreatorUsername);
+        tvEventCreatedAt = findViewById(R.id.tvEventCreatedAt);
         tvVoteCounter = findViewById(R.id.tvVoteCounter);
-        mViewPager = findViewById(R.id.recipe_viewPager);
+        mViewPager = findViewById(R.id.event_viewPager);
         servings_icon = findViewById(R.id.iv_servings_big_view);
         chipGroup = findViewById(R.id.chipGroup);
         chip_1 = findViewById(R.id.chip_1);
@@ -80,13 +82,37 @@ public class DetailedEventsActivity extends AppCompatActivity {
             btnDeleteEvent.setVisibility(View.GONE);
         }
 
-        // Manejar el adaptador del recycler
+        Button btnAttendEvent = findViewById(R.id.btnAttend);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            String currentUserUid = auth.getCurrentUser().getUid();
+            if (currentUserUid.equals(mEvents.getCreatorUid())) {
+                btnAttendEvent.setVisibility(View.GONE);
+            } else {
+                btnAttendEvent.setVisibility(View.VISIBLE);
+            }
+        }
+
+        // Verificar el estado de asistencia guardado en SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("asistencia_" + mEvents.getRef().getId(), Context.MODE_PRIVATE);
+        boolean asistenciaConfirmada = sharedPreferences.getBoolean("asistencia_confirmada", false);
+
+        if (asistenciaConfirmada) {
+            btnAttendEvent.setText("Cancelar Asistencia");
+            btnAttendEvent.setOnClickListener(v -> cancelarAsistencia());
+        } else {
+            btnAttendEvent.setText("Asistiré");
+            btnAttendEvent.setOnClickListener(this::asistirEvento);
+        }
+
+    // Manejar el adaptador del recycler
         List<String> images = mEvents.getImages();
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, images);
         mViewPager.setAdapter(adapter);
 
         // Cargar título de la receta
-        recipeTitle.setText(mEvents.getEventsTitle());
+        eventTitle.setText(mEvents.getEventsTitle());
 
         // Checks para comprobar si el número de comensales es singular o plural, y poner tanto el string como el recurso drawable correspondiente
         String servings = mEvents.getTvEventsServings();
@@ -99,12 +125,12 @@ public class DetailedEventsActivity extends AppCompatActivity {
                 : R.drawable.ic_person_newrecipe;
 
         servings_icon.setImageResource(imageResId);
-        tvRecipeServings.setText(servings + " " + servingsStr);
+        tvEventServings.setText(servings + " " + servingsStr);
 
         // Cargamos mas datos de la receta
-        recipeIngredients.setText(mEvents.getEventsIngredients());
-        recipeElaboration.setText(mEvents.getEventsElaboration());
-        tvRecipeTime.setText(mEvents.getTvEventsTime());
+        eventIngredients.setText(mEvents.getEventsIngredients());
+        eventElaboration.setText(mEvents.getEventsElaboration());
+        tvEventTime.setText(mEvents.getTvEventsTime());
 
         // Verificar si la lista de etiquetas está vacía y cargarla según lo que haya
         if (mEvents.getTags() != null && mEvents.getTags().size() > 0) {
@@ -133,12 +159,15 @@ public class DetailedEventsActivity extends AppCompatActivity {
         ratingBar.setRating(mEvents.getRating());
 
         // Cargamos el creador
-        tvRecipeCreatorUsername.setText(getString(R.string.created_by) + " " + mEvents.getCreatorUsername());
+        tvEventCreatorUsername.setText(getString(R.string.created_by) + " " + mEvents.getCreatorUsername());
+
+        // Cargamos el creador
+        eventAttend.setText(getString(R.string.attend_user) + " " + mEvents.getEventsAttend());
 
         // Formateamos el Date y lo mostramos
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
         String createdAtString = sdf.format(mEvents.getCreatedAt());
-        tvRecipeCreatedAt.setText(createdAtString);
+        tvEventCreatedAt.setText(createdAtString);
 
         // Mostramos el contador de votos
         tvVoteCounter.setText("(" + mEvents.getVoteCounter() + ")");
@@ -285,4 +314,73 @@ public class DetailedEventsActivity extends AppCompatActivity {
         }
     }
 
+    public void asistirEvento(View view) {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String creatorUid = mEvents.getCreatorUid();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("asistencia_" + mEvents.getRef().getId(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (!currentUserId.equals(creatorUid)) {
+            // Agregar lógica para marcar o cancelar la asistencia aquí
+
+            // Verificar si el usuario ya ha confirmado su asistencia previamente
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference attendanceRef = db.collection("asistencias");
+            attendanceRef.whereEqualTo("userId", currentUserId)
+                    .whereEqualTo("eventId", mEvents.getRef().getId())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            Toast.makeText(this, "Has marcado tu asistencia", Toast.LENGTH_SHORT).show();
+                            // El usuario ya ha confirmado su asistencia, permitir cancelarla
+                            Button btnAttendEvent = findViewById(R.id.btnAttend);
+                            btnAttendEvent.setText("Cancelar Asistencia");
+                            btnAttendEvent.setOnClickListener(v -> cancelarAsistencia());
+
+                            // Guardar el estado de asistencia en SharedPreferences
+                            editor.putBoolean("asistencia_confirmada", true);
+                            editor.apply();
+                        } else {
+                            // El usuario aún no ha confirmado su asistencia, permitir confirmarla
+                            Map<String, Object> asistenciaData = new HashMap<>();
+                            asistenciaData.put("userId", currentUserId);
+                            asistenciaData.put("eventId", mEvents.getRef().getId());
+
+                            attendanceRef.add(asistenciaData)
+                                    .addOnSuccessListener(documentReference -> {
+                                        Toast.makeText(this, "Has marcado tu asistencia", Toast.LENGTH_SHORT).show();
+                                        // Cambiar el texto del botón o su estado visual para reflejar que ya han marcado asistencia
+                                        Button btnAttendEvent = findViewById(R.id.btnAttend);
+                                        btnAttendEvent.setText("Cancelar Asistencia");
+                                        btnAttendEvent.setOnClickListener(v -> cancelarAsistencia());
+
+                                        // Guardar el estado de asistencia en SharedPreferences
+                                        editor.putBoolean("asistencia_confirmada", true);
+                                        editor.apply();
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(this, "Error al marcar asistencia", Toast.LENGTH_SHORT).show());
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "No puedes marcar asistencia en tu propio evento", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cancelarAsistencia() {
+
+
+        // Aquí, mostramos un Toast para indicar que la asistencia ha sido cancelada.
+        Toast.makeText(this, "Has cancelado tu asistencia", Toast.LENGTH_SHORT).show();
+        // Luego, puedes ajustar el texto del botón nuevamente para permitir que los usuarios marquen su asistencia.
+        Button btnAttendEvent = findViewById(R.id.btnAttend);
+        btnAttendEvent.setText("Asistiré");
+        btnAttendEvent.setOnClickListener(this::asistirEvento);
+
+        // Guardar el estado de asistencia en SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("asistencia_" + mEvents.getRef().getId(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("asistencia_confirmada", false);
+        editor.apply();
+    }
 }

@@ -14,6 +14,7 @@ public class Events implements Parcelable {
     private String eventsTitle;
     private String eventsIngredients;
     private String eventsElaboration;
+    private String eventsAttend;
     private String tvEventsServings;
     private String tvEventsTime;
     private String selectedEventsType;
@@ -30,13 +31,14 @@ public class Events implements Parcelable {
     public Events() {
         // Inicializa cualquier campo necesario si es necesario
     }
-    public Events(String eventsTitle, String eventsIngredients, String eventsElaboration, String tvEventsServings,
+    public Events(String eventsTitle, String eventsIngredients, String eventsElaboration, String eventsAttend,String tvEventsServings,
                   String tvEventsTime, String selectedEventsType, List<String> tags, List<String> images, String creatorUid,
                   String creatorUsername, float rating, int voteCounter, Date createdAt, Boolean isPublished) {
 
         this.eventsTitle = eventsTitle;
         this.eventsIngredients = eventsIngredients;
         this.eventsElaboration = eventsElaboration;
+        this.eventsAttend = eventsAttend;
         this.tvEventsServings = tvEventsServings;
         this.tvEventsTime = tvEventsTime;
         this.selectedEventsType = selectedEventsType;
@@ -54,6 +56,7 @@ public class Events implements Parcelable {
         eventsTitle = in.readString();
         eventsIngredients = in.readString();
         eventsElaboration = in.readString();
+        eventsAttend = in.readString();
         tvEventsServings = in.readString();
         tvEventsTime = in.readString();
         selectedEventsType = in.readString();
@@ -89,6 +92,7 @@ public class Events implements Parcelable {
         dest.writeString(eventsTitle);
         dest.writeString(eventsIngredients);
         dest.writeString(eventsElaboration);
+        dest.writeString(eventsAttend);
         dest.writeString(tvEventsServings);
         dest.writeString(tvEventsTime);
         dest.writeString(selectedEventsType);
@@ -122,6 +126,10 @@ public class Events implements Parcelable {
 
     public String getEventsElaboration() {
         return eventsElaboration;
+    }
+
+    public String getEventsAttend() {
+        return eventsAttend;
     }
 
     public String getTvEventsServings() {

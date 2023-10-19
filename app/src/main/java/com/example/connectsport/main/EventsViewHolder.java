@@ -47,7 +47,7 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
         chipGroup = itemView.findViewById(R.id.recipe_tags);
         timeTextView = itemView.findViewById(R.id.recipe_time);
         servingsTextView = itemView.findViewById(R.id.recipe_servings);
-        ratingBar = itemView.findViewById(R.id.recipe_rating);
+        ratingBar = itemView.findViewById(R.id.event_rating);
         recipeCreatortv = itemView.findViewById(R.id.recipe_creator);
         iv_servings = itemView.findViewById(R.id.iv_servings);
 
