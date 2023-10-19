@@ -162,7 +162,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
         tvEventCreatorUsername.setText(getString(R.string.created_by) + " " + mEvents.getCreatorUsername());
 
         // Cargamos el creador
-        eventAttend.setText(getString(R.string.attend_user) + " " + mEvents.getEventsAttend());
+        eventAttend.setText("Participantes: " + mEvents.getEventsAttend());
 
         // Formateamos el Date y lo mostramos
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
@@ -276,21 +276,6 @@ public class DetailedEventsActivity extends AppCompatActivity {
             container.removeView((ImageView) object);
         }
     }
-
-    /*public void borrarEvento(View view) {
-        // Obtén la referencia al documento que deseas eliminar
-        DocumentReference eventRef = mEvents.getRef();
-
-        // Elimina el documento
-        eventRef.delete()
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Evento eliminado exitosamente", Toast.LENGTH_SHORT).show();
-                    // Termina la actividad después de eliminar el evento si es necesario
-                    finish();
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Error al eliminar evento", Toast.LENGTH_SHORT).show());
-    }*/
-
     public void borrarEvento(View view) {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String creatorUid = mEvents.getCreatorUid();
@@ -333,6 +318,12 @@ public class DetailedEventsActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                             Toast.makeText(this, "Has marcado tu asistencia", Toast.LENGTH_SHORT).show();
+                            // Obtenemos la referencia a la receta y el usuario actual
+                            DocumentReference ref = mEvents.getRef();
+                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            // Incrementamos el contador de votos en firebase
+                            ref.update("eventsAttend", FieldValue.increment(1));
+
                             // El usuario ya ha confirmado su asistencia, permitir cancelarla
                             Button btnAttendEvent = findViewById(R.id.btnAttend);
                             btnAttendEvent.setText("Cancelar Asistencia");
@@ -350,6 +341,11 @@ public class DetailedEventsActivity extends AppCompatActivity {
                             attendanceRef.add(asistenciaData)
                                     .addOnSuccessListener(documentReference -> {
                                         Toast.makeText(this, "Has marcado tu asistencia", Toast.LENGTH_SHORT).show();
+                                        DocumentReference ref = mEvents.getRef();
+                                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        // Incrementamos el contador de votos en firebase
+                                        ref.update("eventsAttend", FieldValue.increment(1));
+
                                         // Cambiar el texto del botón o su estado visual para reflejar que ya han marcado asistencia
                                         Button btnAttendEvent = findViewById(R.id.btnAttend);
                                         btnAttendEvent.setText("Cancelar Asistencia");
@@ -368,7 +364,10 @@ public class DetailedEventsActivity extends AppCompatActivity {
     }
 
     private void cancelarAsistencia() {
-
+        DocumentReference ref = mEvents.getRef();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        // Incrementamos el contador de votos en firebase
+        ref.update("eventsAttend", FieldValue.increment(-1));
 
         // Aquí, mostramos un Toast para indicar que la asistencia ha sido cancelada.
         Toast.makeText(this, "Has cancelado tu asistencia", Toast.LENGTH_SHORT).show();
