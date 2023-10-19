@@ -1,6 +1,7 @@
 package com.example.connectsport.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.example.connectsport.termsofservice.Fragment1;
+import com.example.connectsport.termsofservice.Fragment2;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -113,6 +116,15 @@ public class DetailedEventsActivity extends AppCompatActivity {
 
         // Cargar título de la receta
         eventTitle.setText(mEvents.getEventsTitle());
+
+        //Redirreción de la ubicación a maps
+        eventTitle.setOnClickListener(view -> {
+            String searchQuery = mEvents.getEventsTitle(); // Suponiendo que mEvents.getEventsTitle() devuelve el título del evento
+            String url = "https://www.google.com/maps/place/" + Uri.encode(searchQuery);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        });
 
         // Checks para comprobar si el número de comensales es singular o plural, y poner tanto el string como el recurso drawable correspondiente
         String servings = mEvents.getTvEventsServings();
