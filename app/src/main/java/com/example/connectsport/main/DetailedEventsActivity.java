@@ -246,6 +246,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
         votesRef.add(voteData)
                 .addOnSuccessListener(documentReference -> Toast.makeText(this, getString(R.string.voted_correctly), Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(this, getString(R.string.vote_add_error), Toast.LENGTH_SHORT).show());
+        tvVoteCounter.setText("(" + (mEvents.getVoteCounter() + 1) + ")");
     }
 
     // Gestión del viewPager para cargar y mostrar las imagenes scrolleables.
@@ -333,6 +334,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             // Incrementamos el contador de votos en firebase
                             ref.update("eventsAttend", FieldValue.increment(1));
+                            eventAttend.setText("Participantes: " + (mEvents.getEventsAttend() + 1));
 
                             // El usuario ya ha confirmado su asistencia, permitir cancelarla
                             Button btnAttendEvent = findViewById(R.id.btnAttend);
@@ -355,6 +357,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
                                         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                         // Incrementamos el contador de votos en firebase
                                         ref.update("eventsAttend", FieldValue.increment(1));
+                                        eventAttend.setText("Participantes: " + (mEvents.getEventsAttend() + 1));
 
                                         // Cambiar el texto del botón o su estado visual para reflejar que ya han marcado asistencia
                                         Button btnAttendEvent = findViewById(R.id.btnAttend);
@@ -378,6 +381,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Incrementamos el contador de votos en firebase
         ref.update("eventsAttend", FieldValue.increment(-1));
+        eventAttend.setText("Participantes: " + (mEvents.getEventsAttend()));
 
         // Aquí, mostramos un Toast para indicar que la asistencia ha sido cancelada.
         Toast.makeText(this, "Has cancelado tu asistencia", Toast.LENGTH_SHORT).show();
