@@ -32,13 +32,13 @@ public class FragmentMain1 extends Fragment implements OnEventsClickListener, On
         newEvents_btn = view.findViewById(R.id.new_events);
         feed_events = view.findViewById(R.id.events_feed_recycler_view);
 
-        // Listener para nueva receta
+        // Listener para nuevo evento
         newEvents_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NewEventsActivity.class);
             startActivity(intent);
         });
 
-        // Cargamos las recetas por orden de creación ascendente
+        // Cargamos los eventos por orden de creación ascendente
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         CollectionReference eventsRef = firestore.collection("events");
         Query query = eventsRef.orderBy("createdAt", Query.Direction.DESCENDING);

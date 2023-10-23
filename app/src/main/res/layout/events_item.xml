@@ -21,7 +21,7 @@
 
             <!-- Imagen de la evento -->
             <ImageView
-                android:id="@+id/recipe_image"
+                android:id="@+id/event_image"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="-16dp"
@@ -41,7 +41,7 @@
             <!-- Tipo de la evento -->
 
                 <TextView
-                    android:id="@+id/recipe_type"
+                    android:id="@+id/event_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ubicación de la evento"
@@ -61,7 +61,7 @@
 
             <!-- Ubicación del evento -->
             <TextView
-                android:id="@+id/recipe_title"
+                android:id="@+id/event_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ubicación de la evento"
@@ -79,7 +79,7 @@
                 android:scrollbarThumbHorizontal="@null">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/recipe_tags"
+                    android:id="@+id/event_tags"
                     style="@style/Widget.MaterialComponents.ChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                     android:src="@drawable/ic_clock" />
 
                 <TextView
-                    android:id="@+id/recipe_time"
+                    android:id="@+id/event_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tiempo de preparación"
@@ -173,10 +173,10 @@
                     android:id="@+id/iv_servings"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_people_newrecipe" />
+                    android:src="@drawable/ic_people_newevent" />
 
                 <TextView
-                    android:id="@+id/recipe_servings"
+                    android:id="@+id/event_servings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Número de comensales"
@@ -210,7 +210,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/recipe_creator"
+                    android:id="@+id/event_creator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

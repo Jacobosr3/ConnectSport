@@ -20,8 +20,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.example.connectsport.termsofservice.Fragment1;
-import com.example.connectsport.termsofservice.Fragment2;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -114,7 +112,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, images);
         mViewPager.setAdapter(adapter);
 
-        // Cargar título de la receta
+        // Cargar título de la evento
         eventTitle.setText(mEvents.getEventsTitle());
 
         //Redirreción de la ubicación a maps
@@ -133,13 +131,13 @@ public class DetailedEventsActivity extends AppCompatActivity {
                 ? getApplicationContext().getString(R.string.num_people_value)
                 : getApplicationContext().getString(R.string.num_person_value);
         int imageResId = (lastChar > '1')
-                ? R.drawable.ic_people_newrecipe
-                : R.drawable.ic_person_newrecipe;
+                ? R.drawable.ic_people_newevent
+                : R.drawable.ic_person_newevent;
 
         servings_icon.setImageResource(imageResId);
         tvEventServings.setText(servings + " " + servingsStr);
 
-        // Cargamos mas datos de la receta
+        // Cargamos mas datos de la evento
         eventIngredients.setText(mEvents.getEventsIngredients());
         eventElaboration.setText(mEvents.getEventsElaboration());
         tvEventTime.setText(mEvents.getTvEventsTime());
@@ -194,11 +192,11 @@ public class DetailedEventsActivity extends AppCompatActivity {
     }
 
     private void mostrarConfirmacion(float rating) {
-        String recipeId = mEvents.getRef().getId();
+        String eventId = mEvents.getRef().getId();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Consultar si el usuario ya ha votado esta receta
-        Query query = votesRef.whereEqualTo("recipeId", recipeId)
+        // Consultar si el usuario ya ha votado esta evento
+        Query query = votesRef.whereEqualTo("eventId", eventId)
                 .whereEqualTo("userId", userId);
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -225,7 +223,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
     }
 
     private void guardarValoracion(float valoracion) {
-        // Obtenemos la referencia a la receta y el usuario actual
+        // Obtenemos la referencia a la evento y el usuario actual
         DocumentReference ref = mEvents.getRef();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Incrementamos el contador de votos en firebase
@@ -242,7 +240,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
 
         // Registrar el voto del usuario actual en la colección "votes"
         Map<String, Object> voteData = new HashMap<>();
-        voteData.put("recipeId", ref.getId());
+        voteData.put("eventId", ref.getId());
         voteData.put("userId", userId);
         voteData.put("rating", valoracion);
         votesRef.add(voteData)
@@ -330,7 +328,7 @@ public class DetailedEventsActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                             Toast.makeText(this, "Has marcado tu asistencia", Toast.LENGTH_SHORT).show();
-                            // Obtenemos la referencia a la receta y el usuario actual
+                            // Obtenemos la referencia a la evento y el usuario actual
                             DocumentReference ref = mEvents.getRef();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             // Incrementamos el contador de votos en firebase

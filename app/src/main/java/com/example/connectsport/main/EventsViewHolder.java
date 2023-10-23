@@ -29,7 +29,7 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
     public TextView servingsTextView;
     public RatingBar ratingBar;
     public Chip chip1, chip2, chip3, chip4;
-    public TextView createdAtTextView, recipeCreatortv;
+    public TextView createdAtTextView, eventCreatortv;
 
     public EventsViewHolder(@NonNull View itemView, OnEventsClickListener listener, OnEventsLongClickListener longListener) {
         super(itemView);
@@ -37,51 +37,51 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
         mListener = listener;
         mLongListener = longListener;
 
-        titleTextView = itemView.findViewById(R.id.recipe_title );
-        imageView = itemView.findViewById(R.id.recipe_image);
+        titleTextView = itemView.findViewById(R.id.event_title);
+        imageView = itemView.findViewById(R.id.event_image);
         chip1 = itemView.findViewById(R.id.chip_1);
         chip2 = itemView.findViewById(R.id.chip_2);
         chip3 = itemView.findViewById(R.id.chip_3);
         chip4 = itemView.findViewById(R.id.chip_4);
-        typeTextView = itemView.findViewById(R.id.recipe_type);
-        chipGroup = itemView.findViewById(R.id.recipe_tags);
-        timeTextView = itemView.findViewById(R.id.recipe_time);
-        servingsTextView = itemView.findViewById(R.id.recipe_servings);
+        typeTextView = itemView.findViewById(R.id.event_type);
+        chipGroup = itemView.findViewById(R.id.event_tags);
+        timeTextView = itemView.findViewById(R.id.event_time);
+        servingsTextView = itemView.findViewById(R.id.event_servings);
         ratingBar = itemView.findViewById(R.id.event_rating);
-        recipeCreatortv = itemView.findViewById(R.id.recipe_creator);
+        eventCreatortv = itemView.findViewById(R.id.event_creator);
         iv_servings = itemView.findViewById(R.id.iv_servings);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }
 
-    public void bind(Events recipe) {
-        titleTextView.setText(recipe.getEventsTitle());
-        timeTextView.setText(recipe.getTvEventsTime());
+    public void bind(Events events) {
+        titleTextView.setText(events.getEventsTitle());
+        timeTextView.setText(events.getTvEventsTime());
 
         //Checks for comensales
-        String servings = recipe.getTvEventsServings();
+        String servings = events.getTvEventsServings();
         char lastChar = servings.charAt(servings.length() - 1);
         String servingsStr = (lastChar > '1')
                 ? mContext.getString(R.string.num_people_value)
                 : mContext.getString(R.string.num_person_value);
 
         int imageResId = (lastChar > '1')
-                ? R.drawable.ic_people_newrecipe
-                : R.drawable.ic_person_newrecipe;
+                ? R.drawable.ic_people_newevent
+                : R.drawable.ic_person_newevent;
 
         iv_servings.setImageResource(imageResId);
-        servingsTextView.setText(" " + recipe.getTvEventsServings() + " " + servingsStr);
-        typeTextView.setText(recipe.getSelectedEventsType());
-        ratingBar.setRating(recipe.getRating());
+        servingsTextView.setText(" " + events.getTvEventsServings() + " " + servingsStr);
+        typeTextView.setText(events.getSelectedEventsType());
+        ratingBar.setRating(events.getRating());
         Glide.with(imageView.getContext())
-                .load(recipe.getImages().get(0))
+                .load(events.getImages().get(0))
                 .into(imageView);
 
         // Verificar si la lista de etiquetas está vacía
-        if (recipe.getTags() != null && recipe.getTags().size() > 0) {
-            for (int i = 0; i < recipe.getTags().size(); i++) {
-                String tag = recipe.getTags().get(i);
+        if (events.getTags() != null && events.getTags().size() > 0) {
+            for (int i = 0; i < events.getTags().size(); i++) {
+                String tag = events.getTags().get(i);
 
                 if (i == 0) {
                     chip1.setText(tag);
@@ -102,7 +102,7 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
             this.chipGroup.setVisibility(View.GONE);
         }
 
-        recipeCreatortv.setText(recipe.getCreatorUsername());
+        eventCreatortv.setText(events.getCreatorUsername());
     }
 
     @Override

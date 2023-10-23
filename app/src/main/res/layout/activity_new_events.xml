@@ -173,7 +173,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginEnd="30dp"
-                android:background="@drawable/ic_recipe_substract"
+                android:background="@drawable/ic_event_substract"
                 app:layout_constraintEnd_toStartOf="@+id/tv_time_value"
                 app:layout_constraintTop_toTopOf="@id/tv_time_value" />
 
@@ -194,7 +194,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="30dp"
-                android:background="@drawable/ic_recipe_add"
+                android:background="@drawable/ic_event_add"
                 app:layout_constraintStart_toEndOf="@id/tv_time_value"
                 app:layout_constraintTop_toTopOf="@id/tv_time_value" />
 
@@ -213,7 +213,7 @@
                     android:id="@+id/newevent_person"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_person_newrecipe"
+                    android:src="@drawable/ic_person_newevent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -236,7 +236,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginBottom="-2dp"
-                    android:src="@drawable/ic_people_newrecipe"
+                    android:src="@drawable/ic_people_newevent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -247,7 +247,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginEnd="30dp"
-                android:background="@drawable/ic_recipe_substract"
+                android:background="@drawable/ic_event_substract"
                 app:layout_constraintEnd_toStartOf="@+id/tv_num_people_value"
                 app:layout_constraintTop_toTopOf="@id/tv_num_people_value" />
 
@@ -268,7 +268,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="30dp"
-                android:background="@drawable/ic_recipe_add"
+                android:background="@drawable/ic_event_add"
                 app:layout_constraintStart_toEndOf="@id/tv_num_people_value"
                 app:layout_constraintTop_toTopOf="@id/tv_num_people_value" />
 
