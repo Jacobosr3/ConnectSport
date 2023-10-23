@@ -288,7 +288,7 @@ public class FragmentMain4 extends Fragment {
         });
     }
 
-    public static double calcularIMC(double alturaCm, double pesoKg) {
+    public static double calcularIMC(double pesoKg, double alturaCm) {
         // Convertir altura a metros
         double alturaM = alturaCm / 100;
 
