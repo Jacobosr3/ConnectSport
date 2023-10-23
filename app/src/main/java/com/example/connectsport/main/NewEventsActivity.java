@@ -2,7 +2,9 @@ package com.example.connectsport.main;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -17,12 +19,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +52,7 @@ import com.example.connectsport.utilities.Events;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +68,7 @@ public class NewEventsActivity extends AppCompatActivity {
     ImageButton increase_time, increase_servings, decrease_time, decrease_servings, event_imageButton1, event_imageButton2, event_imageButton3;
     ImageView  person, group;
     EditText eteventTitle;
-    EditText eteventIngredients;
+    TextView etEventIngredients;
     EditText eteventDirections;
     TextView tveventTime;
     TextView tveventServings;
@@ -76,6 +81,9 @@ public class NewEventsActivity extends AppCompatActivity {
     Chip chipLow, chipMedium, chipHigh;
     SwitchMaterial switch_public_private;
 
+
+    private Calendar calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +93,6 @@ public class NewEventsActivity extends AppCompatActivity {
         event_imageButton1 = findViewById(R.id.event_imageButton1);
         event_imageButton2 = findViewById(R.id.event_imageButton2);
         event_imageButton3 = findViewById(R.id.event_imageButton3);
-        eteventIngredients = findViewById(R.id.et_ingredients);
         eteventDirections = findViewById(R.id.et_elaboration);
         tveventTime = findViewById(R.id.tv_time_value);
         tvTimeModifier = findViewById(R.id.time_amount);
@@ -290,7 +297,7 @@ public class NewEventsActivity extends AppCompatActivity {
         btnCreateevent.setOnClickListener(view -> {
             btnCreateevent.setEnabled(false);
             eventTitle = String.valueOf(eteventTitle.getText());
-            eventIngredients = String.valueOf(eteventIngredients.getText());
+            eventIngredients = String.valueOf(etEventIngredients.getText());
             eventElaboration = String.valueOf(eteventDirections.getText());
             if (!isDefaultImage(event_imageButton1) || !isDefaultImage(event_imageButton2) || !isDefaultImage(event_imageButton3)) {
                 if (!eventTitle.isEmpty() || !eventIngredients.isEmpty() || !eventElaboration.isEmpty()) {
@@ -313,6 +320,48 @@ public class NewEventsActivity extends AppCompatActivity {
                 btnCreateevent.setEnabled(true);
             }
         });
+
+        // Encuentra el TextView
+        etEventIngredients = findViewById(R.id.et_ingredients);
+        // Obtén la fecha y hora actuales
+        calendar = Calendar.getInstance();
+
+        // Establece el clic en el TextView para mostrar el diálogo de selección de fecha
+        etEventIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                        // Actualiza el TextView con la fecha seleccionada
+                        etEventIngredients.setText(selectedDate);
+                        // Muestra el diálogo de selección de hora después de seleccionar la fecha
+                        showTimePickerDialog();
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    private void showTimePickerDialog() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String selectedTime = " - " + hourOfDay + ":" + minute;
+                        // Actualiza el TextView con la hora seleccionada
+                        etEventIngredients.append(selectedTime);
+                    }
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
     }
 
     public static int[] getHoursAndMinutes(int minutes) {
@@ -352,7 +401,7 @@ public class NewEventsActivity extends AppCompatActivity {
 
         // Cargamos datos para crear evento
         eventTitle = eteventTitle.getText().toString().trim();
-        eventIngredients = eteventIngredients.getText().toString().trim();
+        eventIngredients = etEventIngredients.getText().toString().trim();
         eventElaboration = eteventDirections.getText().toString().trim();
         byte[] event_image1 = null;
         byte[] event_image2 = null;
