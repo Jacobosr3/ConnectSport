@@ -7,8 +7,5 @@
         android:title="Menos participantes" />
     <item
         android:id="@+id/menu_option3"
-        android:title="Fútbol" />
-    <item
-        android:id="@+id/menu_option4"
-        android:title="Option 4" />
+        android:title="Tipo de deporte" />
 </menu>

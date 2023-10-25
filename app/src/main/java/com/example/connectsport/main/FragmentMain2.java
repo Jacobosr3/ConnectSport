@@ -28,6 +28,12 @@ import com.google.firebase.firestore.Query;
 public class FragmentMain2 extends Fragment implements OnEventsClickListener, OnEventsLongClickListener {
 
     private RecyclerView feed_events;
+    private FirestoreRecyclerAdapter<Events, EventsViewHolder> adapter;
+    private LinearLayoutManager layoutManager;
+    private FirestoreRecyclerOptions<Events> options;
+    private  Query query;
+    private CollectionReference eventsRef;
+    private FirebaseFirestore firestore;
     ImageView imageView;
 
     @Override
@@ -42,21 +48,21 @@ public class FragmentMain2 extends Fragment implements OnEventsClickListener, On
             popup.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menu_option1:
-                        // Cargamos los eventos
-                        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                        CollectionReference eventsRef = firestore.collection("events");
-                        Query query = eventsRef.orderBy("eventsAttend", Query.Direction.DESCENDING);
-                        FirestoreRecyclerOptions<Events> options = new FirestoreRecyclerOptions.Builder<Events>()
+                        // Cargamos los eventos por orden de participantes ascendente
+                        firestore = FirebaseFirestore.getInstance();
+                        eventsRef = firestore.collection("events");
+                        query = eventsRef.orderBy("eventsAttend", Query.Direction.DESCENDING);
+                        options = new FirestoreRecyclerOptions.Builder<Events>()
                                 .setQuery(query, Events.class)
                                 .build();
 
                         // Configurar el RecyclerView con un LinearLayoutManager
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                        layoutManager = new LinearLayoutManager(getActivity());
                         layoutManager.setOrientation(RecyclerView.VERTICAL);
                         feed_events.setLayoutManager(layoutManager);
 
                         // Configuramos el firestore recycler adapter
-                        FirestoreRecyclerAdapter<Events, EventsViewHolder> adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                        adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
                             @Override
                             protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
                                 String eventsId = this.getSnapshots().getSnapshot(position).getId();
@@ -77,10 +83,9 @@ public class FragmentMain2 extends Fragment implements OnEventsClickListener, On
 
                         feed_events.setAdapter(adapter);
                         adapter.startListening();
-
                         return true;
                     case R.id.menu_option2:
-                        // Cargamos los eventos por orden de creación ascendente
+                        // Cargamos los eventos por orden de participantes descendentes
                         firestore = FirebaseFirestore.getInstance();
                         eventsRef = firestore.collection("events");
                         query = eventsRef.orderBy("eventsAttend", Query.Direction.ASCENDING);
@@ -115,49 +120,245 @@ public class FragmentMain2 extends Fragment implements OnEventsClickListener, On
 
                         feed_events.setAdapter(adapter);
                         adapter.startListening();
-
                         return true;
                     case R.id.menu_option3:
-                        // Cargamos los eventos
-                        firestore = FirebaseFirestore.getInstance();
-                        eventsRef = firestore.collection("events");
+                        androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(getContext(), imageView);
+                        popupMenu.getMenuInflater().inflate(R.menu.submenu, popupMenu.getMenu());
+                        popupMenu.setOnMenuItemClickListener(subMenuItem -> {
+                            switch (subMenuItem.getItemId()) {
+                                case R.id.submenu_option1:
+                                    // Cargamos los eventos
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
 
-                        query = eventsRef.whereEqualTo("selectedEventsType", "Fútbol");
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Fútbol");
 
-                        options = new FirestoreRecyclerOptions.Builder<Events>()
-                                .setQuery(query, Events.class)
-                                .build();
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
 
-                        // Configurar el RecyclerView con un LinearLayoutManager
-                        layoutManager = new LinearLayoutManager(getActivity());
-                        layoutManager.setOrientation(RecyclerView.VERTICAL);
-                        feed_events.setLayoutManager(layoutManager);
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
 
-                        // Configuramos el firestore recycler adapter
-                        adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
-                            @Override
-                            protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
-                                String eventsId = this.getSnapshots().getSnapshot(position).getId();
-                                DocumentReference eventRef = firestore.collection("events").document(eventsId);
-                                model.setRef(eventRef);
-                                // Bind the event data to the view holder
-                                holder.bind(model);
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;
+                                case R.id.submenu_option2:
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
+
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Baloncesto");
+
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
+
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
+
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;
+                                case R.id.submenu_option3:
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
+
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Padel");
+
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
+
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
+
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;
+                                case R.id.submenu_option4:
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
+
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Tenis");
+
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
+
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
+
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;
+                                case R.id.submenu_option5:
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
+
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Voleibol");
+
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
+
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
+
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;case R.id.submenu_option6:
+                                    firestore = FirebaseFirestore.getInstance();
+                                    eventsRef = firestore.collection("events");
+
+                                    query = eventsRef.whereEqualTo("selectedEventsType", "Balonmano");
+
+                                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                                            .setQuery(query, Events.class)
+                                            .build();
+
+                                    // Configurar el RecyclerView con un LinearLayoutManager
+                                    layoutManager = new LinearLayoutManager(getActivity());
+                                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                                    feed_events.setLayoutManager(layoutManager);
+
+                                    // Configuramos el firestore recycler adapter
+                                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                                        @Override
+                                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                                            model.setRef(eventRef);
+                                            // Bind the event data to the view holder
+                                            holder.bind(model);
+                                        }
+
+                                        @NonNull
+                                        @Override
+                                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                            // Create a new view holder for the event items
+                                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                                        }
+                                    };
+
+                                    feed_events.setAdapter(adapter);
+                                    adapter.startListening();
+                                    return true;
+                                default:
+                                    return false;
                             }
-
-                            @NonNull
-                            @Override
-                            public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                                // Create a new view holder for the event items
-                                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
-                                return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
-                            }
-                        };
-
-                        feed_events.setAdapter(adapter);
-                        adapter.startListening();
-                        return true;
-                    case R.id.menu_option4:
-                        // Code to delete the picture
+                        });
+                        popupMenu.show();
                         return true;
                     default:
                         return false;
@@ -186,19 +387,5 @@ public class FragmentMain2 extends Fragment implements OnEventsClickListener, On
     @Override
     public void onEventLongClick(int position) {
         // LongClick
-    }
-
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(getActivity(), v);
-        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                //Toast.makeText(FragmentMain2.this, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-
-        popup.show();
     }
 }
