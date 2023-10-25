@@ -5,24 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    tools:context=".termsofservice.Fragment2">
+    tools:context=".main.FragmentMain2">
 
-    <TextView
-        android:id="@+id/datos"
-        android:layout_width="match_parent"
+    <!-- Barra de búsqueda -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textoBusquedaTextInputLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="17dp"
-        android:text="@string/bottom_menu_grocery"
-        android:textAlignment="center"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toStartOf="@+id/buscarButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textoBusquedaEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/keywords_searchbar"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/buscarButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_lupa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textoBusquedaTextInputLayout" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/events_feed_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buscarButton" />
+
+    <View
+        android:id="@+id/separador2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        app:layout_constraintTop_toBottomOf="@id/events_feed_recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
