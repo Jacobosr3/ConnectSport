@@ -122,7 +122,7 @@
     <string name="update_status">Aqui puedes actualizar tu estado…</string>
     <string name="status_save">Guardar</string>
 
-    <string name="keywords_searchbar">Introduce hasta 3 palabras clave…</string>
+    <string name="keywords_searchbar">Introduce la dirección</string>
 
     <string name="created_by">Creada por:</string>
     <string name="attend_user">Participantes:</string>

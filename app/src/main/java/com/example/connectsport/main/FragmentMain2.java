@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -20,6 +21,7 @@ import com.example.connectsport.R;
 import com.example.connectsport.utilities.Events;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,12 +37,66 @@ public class FragmentMain2 extends Fragment implements OnEventsClickListener, On
     private CollectionReference eventsRef;
     private FirebaseFirestore firestore;
     ImageView imageView;
+    private TextInputEditText searchEditText;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main2, container, false);
         feed_events = view.findViewById(R.id.events_feed_recycler_view);
         imageView = view.findViewById(R.id.buscarButton);
+
+        searchEditText = view.findViewById(R.id.textoBusquedaEditText);
+        searchEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String searchText = searchEditText.getText().toString().trim();
+                if (!searchText.isEmpty()) {
+                    firestore = FirebaseFirestore.getInstance();
+                    eventsRef = firestore.collection("events");
+
+                    query = eventsRef.whereGreaterThanOrEqualTo("eventsTitle", searchText)
+                            .whereLessThanOrEqualTo("eventsTitle", searchText + "\uf8ff");
+
+                    options = new FirestoreRecyclerOptions.Builder<Events>()
+                            .setQuery(query, Events.class)
+                            .build();
+
+                    // Configurar el RecyclerView con un LinearLayoutManager
+                    layoutManager = new LinearLayoutManager(getActivity());
+                    layoutManager.setOrientation(RecyclerView.VERTICAL);
+                    feed_events.setLayoutManager(layoutManager);
+
+                    // Configuramos el firestore recycler adapter
+                    adapter = new FirestoreRecyclerAdapter<Events, EventsViewHolder>(options) {
+                        @Override
+                        protected void onBindViewHolder(@NonNull EventsViewHolder holder, int position, @NonNull Events model) {
+                            String eventsId = this.getSnapshots().getSnapshot(position).getId();
+                            DocumentReference eventRef = firestore.collection("events").document(eventsId);
+                            model.setRef(eventRef);
+                            // Bind the event data to the view holder
+                            holder.bind(model);
+                        }
+
+                        @NonNull
+                        @Override
+                        public EventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            // Create a new view holder for the event items
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_item, parent, false);
+                            return new EventsViewHolder(view, FragmentMain2.this, FragmentMain2.this);
+                        }
+                    };
+
+                    feed_events.setAdapter(adapter);
+                    adapter.startListening();
+
+                    return true;
+                } else {
+                    // Manejo de error si no se proporciona ningún texto de búsqueda
+                    Toast.makeText(getContext(), "Por favor, introduzca un término de búsqueda", Toast.LENGTH_SHORT).show();
+                }
+            }
+            return false;
+        });
 
         imageView.setOnClickListener(view1 -> {
             androidx.appcompat.widget.PopupMenu popup = new androidx.appcompat.widget.PopupMenu(getContext(), imageView);
