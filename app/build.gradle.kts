@@ -56,4 +56,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.google.firebase:firebase-database:20.1.0")
     implementation("com.airbnb.android:lottie:3.4.0")
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
 }

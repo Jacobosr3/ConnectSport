@@ -23,6 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConnectSport."
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDSkoTwYe_TIi5yYyjH5JS_wxlIjPURWtE"
+            />
+
         <activity
             android:name=".main.Info"
             android:exported="false" />

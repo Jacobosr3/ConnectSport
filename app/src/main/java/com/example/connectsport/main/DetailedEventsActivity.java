@@ -3,6 +3,8 @@ package com.example.connectsport.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,12 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,29 +40,37 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.example.connectsport.R;
 import com.example.connectsport.utilities.Events;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-public class DetailedEventsActivity extends AppCompatActivity {
+public class DetailedEventsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener{
 
     private Events mEvents;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference votesRef = db.collection("votes");
 
-    private TextView eventTitle, eventIngredients, eventElaboration, eventAttend, tvEventServings, tvEventTime, tvEventCreatorUsername, tvEventCreatedAt, tvVoteCounter;
+    TextView eventTitle, eventIngredients, eventElaboration, eventAttend, tvEventServings, tvEventTime, tvEventCreatorUsername, tvEventCreatedAt, tvVoteCounter;
     private RatingBar ratingBar;
     private ViewPager mViewPager;
     private ChipGroup chipGroup;
     private Chip chip_1, chip_2, chip_3, chip_4;
     private View separador_chip;
     private ImageView servings_icon;
+    GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.events_big_view);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2);
+        mapFragment.getMapAsync(this);
+
 
         // Obtener el objeto Event enviado desde la actividad anterior
         mEvents = getIntent().getParcelableExtra("events");
@@ -396,4 +412,42 @@ public class DetailedEventsActivity extends AppCompatActivity {
         editor.putBoolean("asistencia_confirmada", false);
         editor.apply();
     }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Añade marcadores de ubicaciones mediante nombres
+        String location = mEvents.getEventsTitle();
+
+        // Añadir marcador utilizando el título del evento como ubicación
+        addMarkerByLocationName(location);
+
+
+        mMap.setOnMapClickListener(this);
+        mMap.setOnMapLongClickListener(this);
+    }
+
+    private void addMarkerByLocationName(String locationName) {
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
+
+                // Ajustar la cámara para que se acerque al marcador
+                float zoomLevel = 16.0f; // Puedes ajustar el nivel de zoom según tus necesidades
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel)); // O puedes usar mMap.animateCamera(...) para una animación suave
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onMapClick(@NonNull LatLng latLng) {}
+
+    @Override
+    public void onMapLongClick(@NonNull LatLng latLng) {}
 }
