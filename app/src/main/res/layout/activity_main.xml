@@ -17,7 +17,7 @@
         android:layout_width="500dp"
         android:layout_height="170dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/titulo"
+        android:src="@drawable/titulo2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,10 +42,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/green2"
         android:textSize="17sp"
         android:textStyle="bold"
-        android:shadowColor="@color/green2"
+        android:shadowColor="@color/black"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="2"

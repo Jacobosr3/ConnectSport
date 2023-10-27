@@ -4,14 +4,13 @@ package com.example.connectsport.main;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.connectsport.R;
 
-public class MainBn extends AppCompatActivity {
+public class MainBn extends AppCompatActivity{
 
     private MenuItem prevMenuItem;
     private SectionsPagerAdapter sectionsPagerAdapter;

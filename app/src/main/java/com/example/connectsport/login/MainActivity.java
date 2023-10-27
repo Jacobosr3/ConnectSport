@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Cargamos el fondo
         Glide.with(this)
-                .load(R.drawable.tenist4)
+                .load(R.drawable.deportes)
                 .transition(DrawableTransitionOptions.withCrossFade(100))
                 .centerCrop()
                 .into(fondo);
