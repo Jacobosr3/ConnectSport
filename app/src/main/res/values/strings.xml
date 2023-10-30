@@ -180,6 +180,7 @@
     <string name="uploadImageError">Error al cargar la imágen</string>
     <string name="user_updated">Foto de perfil actualizada</string>
     <string name="user_not_updated">Error al actualizar perfil</string>
+    <string name="no_permise_location">No podrás ver tu ubicación</string>
 
 
 </resources>

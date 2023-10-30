@@ -1,5 +1,7 @@
 package com.example.connectsport.main;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -7,16 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connectsport.R;
-import com.example.connectsport.utilities.Events;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,15 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -43,8 +35,9 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class FragmentMain3 extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener/*, FragmentMain1.OnEventsListListener*/{
+public class FragmentMain3 extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener{
     GoogleMap mMap;
+    private Button mTypeBtn;
     ArrayList<String> eventsTitles = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference eventsRef = db.collection("events");
@@ -53,6 +46,19 @@ public class FragmentMain3 extends Fragment implements OnMapReadyCallback, Googl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main3, container, false);
+        mTypeBtn = (Button) view.findViewById(R.id.btnHydrido);
+        mTypeBtn.setOnClickListener(new View.OnClickListener() {
+            boolean isHybrid = true;
+            @Override
+            public void onClick(View v) {
+                if (isHybrid) {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                } else {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }
+                isHybrid = !isHybrid;
+            }
+        });
 
         //Recorrer la base datos para guardar las localidads en un arraylist
         eventsRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -65,9 +71,8 @@ public class FragmentMain3 extends Fragment implements OnMapReadyCallback, Googl
                     }
                 }
                 for (String event : arrayList) {
-                    Log.d("WARNING..............................", "Event: " + event);
                     Log.d("AÑADIDO..............................", "Event: " + event);
-                    // Añadir marcador utilizando el título del evento como ubicación
+                    // Añadir marcador utilizando la ubicación del evento
                     addMarkerByLocationName(event);
                 }
             }
@@ -88,13 +93,15 @@ public class FragmentMain3 extends Fragment implements OnMapReadyCallback, Googl
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        Log.d("DENTRO..............................", "Estamos dentroooooooooooo");
-        /*// Añade marcadores de ubicaciones mediante nombres
-        for (String event : arrayList) {
-            Log.d("AÑADIDO..............................", "Event: " + event);
-            // Añadir marcador utilizando el título del evento como ubicación
-            addMarkerByLocationName(event);
-        }*/
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                       return;
+        }
+        mMap.setMyLocationEnabled(true);
+        /*//no mostrar el boton
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);*/
+
         mMap.setOnMapClickListener(this);
         mMap.setOnMapLongClickListener(this);
     }
