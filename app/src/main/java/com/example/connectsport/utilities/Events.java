@@ -25,7 +25,6 @@ public class Events implements Parcelable {
     private float rating;
     private int voteCounter;
     private Date createdAt;
-    private Boolean isPublished;
     private DocumentReference Ref;
 
     public Events() {
@@ -33,7 +32,7 @@ public class Events implements Parcelable {
     }
     public Events(String eventsTitle, String eventsIngredients, String eventsElaboration, int eventsAttend,String tvEventsServings,
                   String tvEventsTime, String selectedEventsType, List<String> tags, List<String> images, String creatorUid,
-                  String creatorUsername, float rating, int voteCounter, Date createdAt, Boolean isPublished) {
+                  String creatorUsername, float rating, int voteCounter, Date createdAt) {
 
         this.eventsTitle = eventsTitle;
         this.eventsIngredients = eventsIngredients;
@@ -48,7 +47,6 @@ public class Events implements Parcelable {
         this.creatorUsername = creatorUsername;
         this.rating = rating;
         this.createdAt = createdAt;
-        this.isPublished = isPublished;
         this.voteCounter = voteCounter;
     }
 
@@ -67,7 +65,6 @@ public class Events implements Parcelable {
         rating = in.readFloat();
         voteCounter = in.readInt();
         createdAt = new Date(in.readLong());
-        isPublished = in.readByte() != 0;
         String refPath = in.readString();
         if (refPath != null) {
             Ref = FirebaseFirestore.getInstance().document(refPath);
@@ -103,7 +100,7 @@ public class Events implements Parcelable {
         dest.writeFloat(rating);
         dest.writeInt(voteCounter);
         dest.writeLong(createdAt.getTime());
-        dest.writeByte((byte) (isPublished ? 1 : 0));
+
         if (Ref != null) {
             dest.writeString(Ref.getPath());
         } else {
@@ -166,10 +163,6 @@ public class Events implements Parcelable {
 
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    public Boolean getIsPublished() {
-        return isPublished;
     }
 
     public void setRef(DocumentReference documentReference) {

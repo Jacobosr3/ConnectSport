@@ -344,27 +344,12 @@
 
             </LinearLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_public_private"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/private_event_toggle"
-                android:textColor="?attr/colorSurface"
-                android:textSize="16sp"
-                app:trackTint="@color/switch_track_color"
-                app:thumbTint="@color/switch_thumb_color"
-                app:useCompatPadding="true"
-                app:layout_constraintTop_toBottomOf="@id/ll_tags"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
             <View
                 android:id="@+id/separador"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#00000000"
-                app:layout_constraintTop_toBottomOf="@id/switch_public_private" />
+                app:layout_constraintTop_toBottomOf="@id/ll_tags" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
