@@ -1,7 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ConnectSport" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.ConnectSport." parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/greend</item>
+        <item name="colorPrimaryVariant">@color/green2d</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/oranged</item>
+        <item name="colorSecondaryVariant">@color/purple2d</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <!--COÑO YA-->
+        <item name="backgroundColor">@color/fadeBlack</item>
+        <item name="popupMenuBackground">@color/moreFadeBlack</item>
     </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/greend</item>
+        <item name="android:elevation" tools:targetApi="lollipop">
+            @dimen/cardview_compat_inset_shadow
+        </item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <!--<item name="navigationIcon">?attr/homeAsUpIndicator</item>-->
+    </style>
+
+    <style name="TextAppearance.MaterialComponents.Chip" parent="TextAppearance.AppCompat" />
+
 </resources>
