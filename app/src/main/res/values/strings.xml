@@ -182,5 +182,12 @@
     <string name="user_not_updated">Error al actualizar perfil</string>
     <string name="no_permise_location">No podrás ver tu ubicación</string>
 
+    <string name="imc">Calcula tu IMC:</string>
+    <string name="mas_par">Más participantes</string>
+    <string name="menos_par">Menos participantes</string>
+    <string name="tipo_depor">Tipo de deporte</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="eliminar">Eliminar</string>
+
 
 </resources>
